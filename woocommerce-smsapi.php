@@ -3,7 +3,7 @@
   Plugin Name: WooCommerce SMSAPI.pl
   Plugin URI: http://www.wpdesk.pl/sklep/smsapi-woocommerce/
   Description: Integracja WooCommerce z <a href="https://ssl.smsapi.pl/rejestracja/4PT2" target="_blank">SMSAPI.pl</a>.
-  Version: 1.0
+  Version: 1.1
   Author: Inspire Labs
   Author URI: http://www.inspirelabs.pl/
   License: GPLv2 or later

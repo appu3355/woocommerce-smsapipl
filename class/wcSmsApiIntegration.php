@@ -120,7 +120,7 @@
                     return $this->_smsapi_client;
                 }
 
-                protected function sendSms($to, $text, $sender) {
+                protected function sendSms($to, $text) {
                     try {
                         $smsapi = new SmsFactory;
                         $smsapi->setClient($this->getSmsClient());
@@ -130,7 +130,11 @@
                         $actionSend->setPartner(self::PARTNER_ID);
                         $actionSend->setTo($to);
                         $actionSend->setText($text);
-                        $actionSend->setSender($sender); //Pole nadawcy, lub typ wiadomości: 'ECO', '2Way'
+
+                        $sender = $this->sms_type;
+
+                        if ($sender == 'ECO')
+                            $actionSend->setSender($sender); //Pole nadawcy, lub typ wiadomości: 'ECO', '2Way'
 
                         $response = $actionSend->execute();
 
@@ -162,11 +166,11 @@
                     $order = new WC_Order( $order_id );
 
                     if ($new_status == 'processing' && $this->processing_order_sms_enabled == 'yes' ) {
-                        $this->sendSms( $order->billing_phone, $this->processing_order_sms_text, $this->sms_type);
+                        $this->sendSms( $order->billing_phone, $this->processing_order_sms_text);
                     }
 
                     if ($new_status == 'completed' && $this->completed_order_sms_enabled == 'yes' ) {
-                        $this->sendSms( $order->billing_phone, $this->completed_order_sms_text, $this->sms_type);
+                        $this->sendSms( $order->billing_phone, $this->completed_order_sms_text);
                     }
 
                 }
@@ -178,7 +182,7 @@
 
                         $order = new WC_Order( $order_id );
                         if ($this->customer_note_sms_enabled == 'yes' ) {
-                            $this->sendSms( $order->billing_phone, $customer_note, $this->sms_type);
+                            $this->sendSms( $order->billing_phone, $customer_note);
                         }
                     }
 
